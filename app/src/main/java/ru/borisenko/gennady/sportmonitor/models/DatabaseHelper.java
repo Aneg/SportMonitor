@@ -22,6 +22,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     //ссылки на DAO соответсвующие сущностям, хранимым в БД
     private ExerciseDAO exerciseDao = null;
     private ExerciseComplexDAO exerciseComplexDao = null;
+    private ComplexDAO complexDao = null;
+    private ComplexExerciseComplexDAO complexExerciseComplexDao = null;
+    private TrainingDAO trainingDao = null;
+    private TrainingComplexDAO trainingComplexDao = null;
 
     public DatabaseHelper(Context context){
         super(context,DATABASE_NAME, null, DATABASE_VERSION);
@@ -33,7 +37,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try
         {
             TableUtils.createTable(connectionSource, Exercise.class);
-//            TableUtils.createTable(connectionSource, Role.class);
+            TableUtils.createTable(connectionSource, ExerciseComplex.class);
+            TableUtils.createTable(connectionSource, Complex.class);
+            TableUtils.createTable(connectionSource, ComplexExerciseComplex.class);
+            TableUtils.createTable(connectionSource, ComplexExerciseComplex.class);
+            TableUtils.createTable(connectionSource, ComplexExerciseComplex.class);
         }
         catch (SQLException e){
             Log.e(TAG, "error creating DB " + DATABASE_NAME);
@@ -49,6 +57,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             //Так делают ленивые, гораздо предпочтительнее не удаляя БД аккуратно вносить изменения
             TableUtils.dropTable(connectionSource, ExerciseComplex.class, true);
             TableUtils.dropTable(connectionSource, Exercise.class, true);
+            TableUtils.dropTable(connectionSource, Complex.class, true);
+            TableUtils.dropTable(connectionSource, ComplexExerciseComplex.class, true);
+            TableUtils.dropTable(connectionSource, TrainingComplex.class, true);
+            TableUtils.dropTable(connectionSource, Training.class, true);
             onCreate(db, connectionSource);
         }
         catch (SQLException e){
@@ -64,13 +76,40 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return exerciseDao;
     }
 
+    public TrainingDAO getTrainingDAO() throws SQLException{
+        if(trainingDao == null){
+            trainingDao = new TrainingDAO(getConnectionSource(), Training.class);
+        }
+        return trainingDao;
+    }
+
+    public TrainingComplexDAO getTrainingComplexDAO() throws SQLException{
+        if(trainingComplexDao == null){
+            trainingComplexDao = new TrainingComplexDAO(getConnectionSource(), TrainingComplex.class);
+        }
+        return trainingComplexDao;
+    }
+
     public ExerciseComplexDAO getExerciseComplexDAO() throws SQLException{
         if(exerciseComplexDao == null){
-            exerciseComplexDao = new ExerciseComplexDAO(getConnectionSource(), Exercise.class);
+            exerciseComplexDao = new ExerciseComplexDAO(getConnectionSource(), ExerciseComplex.class);
         }
         return exerciseComplexDao;
     }
 
+    public ComplexDAO getComplexDAO() throws SQLException{
+        if(complexDao == null){
+            complexDao = new ComplexDAO(getConnectionSource(), Complex.class);
+        }
+        return complexDao;
+    }
+
+    public ComplexExerciseComplexDAO getComplexExerciseComplexDao() throws SQLException{
+        if(complexExerciseComplexDao == null){
+            complexExerciseComplexDao = new ComplexExerciseComplexDAO(getConnectionSource(), ComplexExerciseComplex.class);
+        }
+        return complexExerciseComplexDao;
+    }
 
     //выполняется при закрытии приложения
     @Override
@@ -78,5 +117,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         super.close();
         exerciseDao = null;
         exerciseComplexDao = null;
+        complexExerciseComplexDao = null;
+        complexDao = null;
+        trainingDao = null;
+        trainingComplexDao = null;
     }
 }
