@@ -19,4 +19,32 @@ public class Training {
 
     @DatabaseField(canBeNull = true, dataType = DataType.STRING, columnName = "count_exercise")
     private String countExercise;
+
+    public int getId() {
+        return Id;
+    }
+
+    public int getIsRound() {
+        return isRound;
+    }
+
+    public void setIsRound(int isRound) {
+        this.isRound = isRound;
+    }
+
+    public int getCountRound() {
+        return countRound;
+    }
+
+    public void setCountRound(int countRound) {
+        this.countRound = countRound;
+    }
+
+    public String getCountExercise() {
+        return countExercise;
+    }
+
+    public void setCountExercise(String countExercise) {
+        this.countExercise = countExercise;
+    }
 }

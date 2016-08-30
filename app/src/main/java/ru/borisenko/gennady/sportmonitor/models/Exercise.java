@@ -16,4 +16,23 @@ public class Exercise {
     @DatabaseField(canBeNull = false, dataType = DataType.LONG_STRING, columnName = "about")
     private String about;
 
+    public int getId() {
+        return Id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
 }
