@@ -14,15 +14,15 @@ public class ComplexExerciseComplex {
      * needed in case we need to update or delete this object in the future.
      */
     @DatabaseField(generatedId = true)
-    int id;
+    private int id;
 
     // This is a foreign object which just stores the id from the User object in this table.
-    @DatabaseField(foreign = true, columnName = EXERCISE_COMPLEX_ID_FIELD_NAME)
-    ExerciseComplex exercise_complex;
+    @DatabaseField(foreign = true, columnName = EXERCISE_COMPLEX_ID_FIELD_NAME, foreignAutoRefresh = true)
+    private ExerciseComplex exercise_complex;
 
     // This is a foreign object which just stores the id from the Post object in this table.
-    @DatabaseField(foreign = true, columnName = COMPLEX_ID_FIELD_NAME)
-    Complex complex;
+    @DatabaseField(foreign = true, columnName = COMPLEX_ID_FIELD_NAME, foreignAutoRefresh = true)
+    private Complex complex;
 
     ComplexExerciseComplex() {
         // for ormlite
@@ -30,6 +30,26 @@ public class ComplexExerciseComplex {
 
     public ComplexExerciseComplex(ExerciseComplex exercise_complex, Complex complex) {
         this.exercise_complex = exercise_complex;
+        this.complex = complex;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public ExerciseComplex getExercise_complex() {
+        return exercise_complex;
+    }
+
+    public void setExercise_complex(ExerciseComplex exercise_complex) {
+        this.exercise_complex = exercise_complex;
+    }
+
+    public Complex getComplex() {
+        return complex;
+    }
+
+    public void setComplex(Complex complex) {
         this.complex = complex;
     }
 }

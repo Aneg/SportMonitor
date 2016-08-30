@@ -11,14 +11,28 @@ public class ExerciseComplex {
     private int Id;
 
     @DatabaseField(canBeNull = false, dataType = DataType.SHORT, columnName = "number_repetitions")
-    private String number_repetitions;
+    private int number_repetitions;
 
+    @DatabaseField(foreign = true, columnName = "exercise", foreignAutoRefresh = true)
     private Exercise exercise;
-    public void setExercise(Exercise value){
-        this.exercise = value;
+
+    public int getId() {
+        return Id;
     }
 
-    public Exercise getExercise(){
+    public int getNumber_repetitions() {
+        return number_repetitions;
+    }
+
+    public void setNumber_repetitions(int number_repetitions) {
+        this.number_repetitions = number_repetitions;
+    }
+
+    public Exercise getExercise() {
         return exercise;
+    }
+
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
     }
 }
